@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "filename": "face_2026-03-27T13-46-09-003Z.png",
+    "location": "Unknown",
+    "timestamp": "2026-03-27T13:46:09.009Z",
+    "imagePath": "/user_captures/face_2026-03-27T13-46-09-003Z.png"
+  },
+  {
+    "id": 2,
+    "filename": "face_2026-03-27T13-52-21-273Z.png",
+    "location": "Unknown",
+    "timestamp": "2026-03-27T13:52:21.276Z",
+    "imagePath": "/user_captures/face_2026-03-27T13-52-21-273Z.png"
+  },
+  {
+    "id": 3,
+    "filename": "face_2026-03-27T15-11-03-992Z.png",
+    "location": "Unknown",
+    "timestamp": "2026-03-27T15:11:03.999Z",
+    "imagePath": "/user_captures/face_2026-03-27T15-11-03-992Z.png"
+  },
+  {
+    "id": 4,
+    "filename": "face_2026-03-27T15-14-06-221Z.png",
+    "location": "Unknown",
+    "timestamp": "2026-03-27T15:14:06.225Z",
+    "imagePath": "/user_captures/face_2026-03-27T15-14-06-221Z.png"
+  }
+]

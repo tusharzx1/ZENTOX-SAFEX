@@ -1,51 +1,18 @@
-# dependencies
-fraud-detection-frontend/node_modules
-fraud-detection-frontend/.pnp
-fraud-detection-frontend/.pnp.*
-fraud-detection-frontend/.yarn/*
-fraud-detection-frontend/!.yarn/patches
-fraud-detection-frontend/!.yarn/plugins
-fraud-detection-frontend/!.yarn/releases
-fraud-detection-frontend/!.yarn/versions
+# Universal Security
+**/.env*
+**/node_modules/
+**/venv/
+**/.next/
+**/artifacts/
+**/cache/
+**/build/
+**/out/
 
-# testing
-fraud-detection-frontend/coverage
-
-# next.js
-fraud-detection-frontend/.next/
-fraud-detection-frontend/out/
-
-# production
-fraud-detection-frontend/build
-
-# misc
-fraud-detection-frontend/.DS_Store
-fraud-detection-frontend/*.pem
-
-# debug
-fraud-detection-frontend/npm-debug.log*
-fraud-detection-frontend/yarn-debug.log*
-fraud-detection-frontend/yarn-error.log*
-fraud-detection-frontend/.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-fraud-detection-frontend/.env*
-
-# vercel
-fraud-detection-frontend/.vercel
-
-# typescript
-fraud-detection-frontend/*.tsbuildinfo
-fraud-detection-frontend/next-env.d.ts
-
-/ai_model/venv/
-/ai_model/.env
-
-/blockchain_api/node_modules
-/blockchain_api/cache
-/blockchain_api/artifacts
-/blockchain_api/typechain
-/blockchain_api/typechain-types
-/blockchain_api/coverage
-/blockchain_api/coverage.json
-/blockchain_api/ignition/deployments/chain-31337
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*

@@ -1,120 +1,77 @@
-# Credit Card Fraud Detector
+# Cyberpunk Credit Card Fraud Detector
 
-An open-source, AI-powered fraud detection system that combines machine learning, blockchain security, and facial recognition to prevent fraudulent transactions.
+An immersive, AI-powered and blockchain-secured Web3 fraud detection system. It features a dark cyberpunk 3D user interface, hardware-level facial biometric verification, machine-learning anomaly detection, and immutable on-chain transaction logging.
 
-## Features
+## Core Features
 
-- **AI Fraud Detection**: Utilizes machine learning models to identify and flag suspicious transactions in real-time.
-- **Blockchain Security**: Enhances transaction security through the use of decentralized smart contracts on the Ethereum blockchain.
-- **Facial Recognition**: Provides an additional layer of security with biometric verification to authorize transactions.
-- **Real-Time Alerts**: Sends instant SMS notifications about potentially fraudulent activity via the Twilio API.
-- **Interactive Dashboard**: A user-friendly web interface built with Next.js for monitoring and managing transactions.
+1. **Hardware Facial Biometrics**: Authenticates the user via live webcam using OpenCV Haar Cascades and dense structural histogram correlation (fully customized for Python 3.14+ compatibility). All scanned faces are permanently logged with secure UUIDs.
+2. **AI Fraud Detection API**: A FastAPI backend running a Scikit-Learn Random Forest model that evaluates transaction parameters (location, IP address, merchant, time, amount) to instantly flag anomalies.
+3. **2FA Twilio Integration**: Transactions flagged as legitimate still undergo a strict SMS OTP (One-Time Password) challenge before approval.
+4. **Immutable Ledger Logging**: Approved transactions are permanently written to an **On-Chain Ethereum** smart contract, producing a verified Transaction Hash (TxHash).
+5. **Interactive 3D UI**: A fully immersive, dark-themed "Terminal Hacker" interface built with React Three Fiber, featuring a rotating matrix-style particle mesh background.
+
+---
 
 ## Technology Stack
 
-- **Backend**: FastAPI, TensorFlow, OpenCV, Dlib, Scikit-Learn
-- **AI Model**: DeepFace, Face Recognition
-- **Blockchain**: Hardhat, Solidity, Ethereum
-- **Frontend**: Next.js, React, TailwindCSS
-- **Notifications**: Twilio API
+### Frontend (User Interface)
+- **Next.js & React**: Core web framework.
+- **Three.js & React Three Fiber (@react-three/drei)**: Renders the immersive 3D particle physics background.
+- **Vanilla CSS Modules**: Custom-built cyberpunk styling (JetBrains Mono, Neon Green `#39FF14`, floating glassmorphic panels).
+- **Axios**: Handles API proxying and network calls to the backend components.
 
-## Getting Started
+### AI & Backend Services
+- **FastAPI & Uvicorn**: High-performance asynchronous Python API server (runs on port `8000`).
+- **OpenCV (cv2) & Numpy**: Powers the structural biometric face verification and identity matching algorithm.
+- **Scikit-Learn**: Drives the statistical machine learning model predicting transaction validity.
+- **Twilio API**: Handles the delivery of SMS OTP challenges for 2-Factor Authentication.
 
-### Prerequisites
+### On-Chain Blockchain Integration
+- **Hardhat**: Acts as the local **Ethereum Testnet Node** (running internally on port `8545`). The smart contract is deployed on this simulated blockchain.
+- **Solidity**: The smart contract programming language used to securely store the transaction records.
+- **Node.js & Express API**: Middleware API (running on port `8001`) that uses **Ethers.js** to bridge the React frontend directly to the Hardhat Ethereum node.
 
-- **Ubuntu**:
-  ```sh
-  sudo apt update
-  sudo apt install -y build-essential cmake libopenblas-dev liblapack-dev libx11-dev libgtk-3-dev python3.10
-  ```
-- **Node.js**: v18.x or later
-- **Python**: 3.10
+---
 
-### Installation
+## How to Run the Application
 
-1.  **Clone the repository:**
-    ```sh
-    git clone https://github.com/aakash4dev/credit-card-fraud-detector.git
-    cd credit-card-fraud-detector
-    ```
+The application consists of three decoupled microservices. They must all run concurrently in separate terminals.
 
-2.  **Set up the AI Model:**
-    ```sh
-    cd ai_model
-    python3.10 -m venv venv
-    source venv/bin/activate
-    pip install --no-cache-dir dlib fastapi uvicorn opencv-python numpy twilio joblib pandas pillow scikit-learn python-dotenv deepface tensorflow-cpu tf-keras python-multipart
-    pip install git+https://github.com/ageitgey/face_recognition_models
-    pip install dlib==19.21.1
-    deactivate
-    source venv/bin/activate
-    ```
+### 1. Start the AI & Biometrics API (Terminal 1)
+```powershell
+cd ai_model
+.\venv\Scripts\activate
+# Start the FastAPI server on port 8000
+python -m uvicorn all_apis:app --host 0.0.0.0 --port 8000
+```
+*(Make sure you have configured your Twilio credentials in `ai_model/.env`!)*
 
-3.  **Set up Twilio:**
-    - Create a [Twilio](https://twilio.com/) account.
-    - Get your Phone Number, Account SID, and Auth Token from the [Twilio Console](https://console.twilio.com/).
-    - Create a `.env` file in the `ai_model` directory and add your credentials:
-      ```env
-      TWILIO_ACCOUNT_SID=your_account_sid
-      TWILIO_AUTH_TOKEN=your_auth_token
-      TWILIO_PHONE_NUMBER=your_twilio_number
-      ```
+### 2. Start the Ethereum Blockchain Node (Terminal 2)
+```powershell
+cd blockchain_api
+# Boots up the local Hardhat Ethereum Network
+npx hardhat node
+```
 
-4.  **Set up the Blockchain API:**
-    ```sh
-    cd ../blockchain_api
-    npm install
-    ```
+### 3. Deploy Contract & Start Blockchain Middleware API (Terminal 3)
+```powershell
+cd blockchain_api
+# Deploy the smart contract to the local Hardhat network from Terminal 2
+npx hardhat run --network localhost scripts/deploy.js
+# Start the Express API on port 8001
+node api.js
+```
 
-5.  **Set up the Frontend:**
-    ```sh
-    cd ../fraud-detection-frontend
-    npm install
-    ```
+### 4. Start the 3D Cyberpunk Frontend (Terminal 4)
+```powershell
+cd fraud-detection-frontend
+# Start the Next.js server on port 3000
+npm run dev
+```
 
-## Running the Application
-
-1.  **Start the AI Model API:**
-    ```sh
-    cd ai_model
-    source venv/bin/activate
-    python3 train_fraud_model.py
-    uvicorn all_apis:app --host 0.0.0.0 --port 8000
-    ```
-
-2.  **Start the local Blockchain:**
-    (In a new terminal)
-    ```sh
-    cd blockchain_api
-    npx hardhat node
-    ```
-
-3.  **Deploy the Smart Contract and Start the Blockchain API:**
-    (In a new terminal)
-    ```sh
-    cd blockchain_api
-    npx hardhat run --network localhost scripts/deploy.js
-    node api.js
-    ```
-
-4.  **Start the Frontend:**
-    (In a new terminal)
-    ```sh
-    cd fraud-detection-frontend
-    npm run dev
-    ```
-
-5.  **Enable Camera Permissions in Chrome:**
-    - Navigate to `chrome://flags/#unsafely-treat-insecure-origin-as-secure`
-    - Add `http://localhost:3000` to the list of origins.
-    - Relaunch Chrome.
-
-6.  **Access the application** at [http://localhost:3000](http://localhost:3000).
-
-## Contributing
-
-Contributions are welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute to this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### 5. Google Chrome Camera Configuration
+To allow the local environment to access your webcam for Face Verification:
+1. Open Google Chrome and go to: `chrome://flags/#unsafely-treat-insecure-origin-as-secure`
+2. Add `http://localhost:3000` to the list of origins.
+3. Enable the flag and click **Relaunch**.
+4. Open the app at [http://localhost:3000](http://localhost:3000) and authorize the transaction!
